@@ -5,13 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script> -->
     <script src="/socket.io/socket.io.js"></script>
     <script defer src="./script.js"></script>
 </head>
 <body>
+    <h1>Socket.io Crash Course</h1>
 
-    <button id="boom">Send message</button>
-    <h1 id="heading"></h1>
+    <div id="loginBox">
+        <input type="text" placeholder="username" id='username'>
+        <input type="text" placeholder="password" id='password'>
+        <button id="startBtn">START</button>
+    </div>
+
+    <div id="chatBox">
+        <input type="text" id="toUser" placeholder="Send to (default everyone)" >
+        <input type="text" id="msg" placeholder="new message" >
+        <button id="send">SEND</button>
+        <ul id="MessagesList"></ul>
+    </div>
 
 </body>
 </html>

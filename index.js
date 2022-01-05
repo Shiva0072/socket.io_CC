@@ -14,20 +14,37 @@ httpServer.listen(8000,()=>{
     console.log("Server is running ");
 });
 
+
+
 io.on('connection',(socket)=>{
     // console.log("connected to client : ",socket.id);
 
-    socket.on('boom',()=>{
-        console.log("button clicked by socket : ",socket.id);
+    socket.on('login',(data)=>{
+        socket.join(data.username);
+        socket.emit("loggedIn");
     });
 
-    setInterval(()=>{
-        socket.emit("whizzz");
-    },2000);
+    socket.on('msg_send',(data)=>{
+        if(data.to){
+            // console.log('directed to room of  : ',data.to);
+            io.to(data.to).emit('msg_rcvd',{
+                to: data.to,
+                msg: data.msg
+            });
+        }
+        else{
+            //io.emit('msg_rcvd',data.msg) would send to this user also
+            socket.broadcast.emit('msg_rcvd',data);
+        }
+    });
 
 });
 
 /*
-setInterval is server-sided event.
-boom is client-sided event.
+io and socket could be our potential optn on server side but only socket on client side
+=======
+io.to(data.to).emit... is for the particular user: a private message. A user has its own room named by his own name. we are simply directing the message to a room and in the process a private message is delivered                              
+when no user-name is supplied, we simply pass it to all the users.  
+=======
+
 */
