@@ -28,6 +28,11 @@ socket.on('loggedIn',()=>{
     chatDiv.show(); 
 });
 
+socket.on('login_failed',()=>{
+    window.alert("Invalid user-name or password");
+    window.alert("create a new account or enter correct credentials");
+});
+
 sendBtn.on('click',()=>{
     socket.emit('msg_send',{
         to: toUser.val(),
@@ -37,5 +42,5 @@ sendBtn.on('click',()=>{
 
 socket.on('msg_rcvd',(data)=>{
     // console.log("here we are client: ",data);  //open 3 tabs to see the action. 
-    MessagesList.append($('<li>').text(data.msg));
+    MessagesList.append($('<li>').text(`[${data.from}] : ${data.msg}`));
 });
